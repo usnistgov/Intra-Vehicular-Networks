@@ -330,10 +330,14 @@ odl-yangtools-yang-parser             | 0.8.2-Beryllium-SR2 | x         | odl-ya
 
 #### Now OpenDayLight is up and running with the required functionalities, use the following URL to access DLUX. 
 
-[Link](http://10.11.200.121:8181/index.html)
-  ```
-  login :  admin
-   password : admin 
+http://10.11.200.121:8181/index.html
+
+
+```
+Use the following credentials to login : 
+login :  admin
+password : admin 
+
 ```
 
 
