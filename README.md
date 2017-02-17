@@ -37,12 +37,12 @@ allow-hotplug wlan0
       netmask 255.255.255.0 
       network 10.11.201.0 
       broadcast 10.11.201.255 
-     
+ ```    
  
  
  **Edit the Pi2 /etc/network/interfaces/**
 
-``````
+
 allow-eth0
    iface eth0 inet static
    address 10.11.200.42 
@@ -56,7 +56,7 @@ allow-eth0
    netmask 255.255.255.0 
    network 10.11.202.0 
    broadcast 10.11.201.255
-   ```
+ 
    
   
 
