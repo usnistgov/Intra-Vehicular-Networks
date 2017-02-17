@@ -227,7 +227,7 @@ sudo ovs-ofctl dump-ports br2
 
 #### install required features : 
 
-`
+```
 opendaylight-user@root>feature:list -i
 Name                                  | Version             | Installed | Repository                                 | Description                                       
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -326,7 +326,7 @@ odl-yangtools-yang-data               | 0.8.2-Beryllium-SR2 | x         | odl-ya
 odl-yangtools-common                  | 0.8.2-Beryllium-SR2 | x         | odl-yangtools-0.8.2-Beryllium-SR2          | OpenDaylight :: Yangtools :: Common               
 odl-yangtools-yang-parser             | 0.8.2-Beryllium-SR2 | x         | odl-yangtools-0.8.2-Beryllium-SR2          | OpenDaylight :: Yangtools :: YANG Parser          
 
-`
+```
 
 ### Markdown
 
