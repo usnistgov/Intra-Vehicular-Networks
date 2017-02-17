@@ -167,33 +167,54 @@ sudo ovs-vsctl add-br br2
 
 ##### I- 1-2-B-c : Add ports wlan1 and wlan2 to br1 and br2 respectively 
 ```
-sudo ovs-vsctl add-port br0 wlan1
- sudo ovs-vsctl add-port br1 wlan2
+sudo ovs-vsctl add-port br1 wlan1
+sudo ovs-vsctl add-port br2 wlan2
  ```
 ##### I- 1-2-B-d : Assign wlan1 and wlan2 addresses to OVS local interfaces br1 and br2 respectively ( here Pi1 leased 10.11.201.9/24 to wlan1 and Pi2 leased 10.11.202.12/24 to wlan2 ): 
 ```
 sudo ifconfig wlan1 0
-    sudo ifconfig br1 10.11.201.9 netmask 255.255.255.0
-    sudo ifconfig wlan2 0
-    sudo ifconfig br1 10.11.202.12 netmask 255.255.255.0
+sudo ifconfig br1 10.11.201.9 netmask 255.255.255.0
+sudo ifconfig wlan2 0
+sudo ifconfig br1 10.11.202.12 netmask 255.255.255.0
 ```    
     
 
 ##### I- 1-2-B-e : Create patch interfaces to connect br1 and br2
-##### I- 1-2-B-f : Connectivity Test
-##### I- 1-2-B-g : Checking the configguration : 
-- flows
-- ports 
-- bridges
 
-##### I- 1-2-B-h : 
-##### I- 1-2-B-i : 
+```
+   sudo ovs-vsctl add-port br1 patch1
+   sudo ovs-vsctl add-port br2 patch2
+   sudo ovs-vsctl set-interface patch1 type=patch
+   sudo ovs-vsctl set interface patch1 type=patch
+   sudo ovs-vsctl set interface patch2 type=patch
+   sudo ovs-vsctl set interface patch1 options:peer=patch2
+   sudo ovs-vsctl set interface patch2 options:peer=patch1
+   
+```
 
 
+##### I- 1-2-B-f : Checking the configguration : 
+
+**flows**
+```
+sudo ovs-ofctl dump-flows br1
+sudo ovs-ofctl dump-flows br2
+```
+**ports**
+```
+sudo ovs-ofctl dump-ports br1
+sudo ovs-ofctl dump-ports br2
+```
+**bridges**
+
+`sudo ovs-vsctl show`
 
 
-
-
+##### I- 1-2-B-g : connect br1 and br2 to the OpenDayLight Controller 
+```
+   sudo ovs-vsctl set-controller br1 tcp:10.11.200.121:6633
+   sudo ovs-vsctl set-controller br2 tcp:10.11.200.121:6633
+```
 
 
 ### Markdown
