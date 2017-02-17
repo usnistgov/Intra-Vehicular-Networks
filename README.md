@@ -10,19 +10,15 @@ Open vSwitch or OVS, is an open-source implementation of a distributed virtual m
 
 ### I- 1-1 Setup Edge Nodes ( Pi1 and Pi2 ) as Wireless Access points
 
-Common config for both Pi1 and Pi2 : 
-
-#### I- 1-1-a packages to install and files to edit _ 
-
-**Download hostap + dsnmasq packages** 
+#### I- 1-1-a : Pi1 and Pi2 :Download hostap + dsnmasq packages 
 
 `sudo apt-get install dnsmasq hostapd`
 
-**Add the following line to the bottom of the file :*  /etc/dhcpcd.conf
+#### I- 1-1-b : Pi1 and Pi2 : Add the following line to the bottom of the file :  /etc/dhcpcd.conf
 
 `denyinterfaces wlan0`
 
-**Edit the Pi1 /etc/network/interfaces/**
+#### I- 1-1-c : Pi1 : edit the file /etc/network/interfaces/
 
 ```allow-eth0 
        iface eth0 inet static
@@ -31,7 +27,7 @@ Common config for both Pi1 and Pi2 :
        gateway 10.11.200.200
        dns-nameservers 10.11.200.200
 
-allow-hotplug wlan0 
+      allow-hotplug wlan0 
       iface wlan0 inet static
       address 10.11.201.1 
       netmask 255.255.255.0 
@@ -39,8 +35,7 @@ allow-hotplug wlan0
       broadcast 10.11.201.255 
  ```    
  
- 
- **Edit the Pi2 /etc/network/interfaces/**
+#### I- 1-1-d : Pi2 : edit the file /etc/network/interfaces/ 
 
 ```
 allow-eth0
@@ -55,10 +50,15 @@ allow-eth0
    address 10.11.202.11 
    netmask 255.255.255.0 
    network 10.11.202.0 
-   broadcast 10.11.201.255
+   broadcast 10.11.202.255
  ```
-   
-  
+
+#### I- 1-1-e : Edit the Pi1's /etc/hostapd/
+
+
+
+
+
 
 
 
