@@ -339,6 +339,14 @@ login :  admin
 password : admin 
 
 ```
+#### DLUX Interface 
+
+**TOPLOGY**
+
+![Image](<a href="https://ibb.co/dmZJYv"><img src="https://image.ibb.co/bUQgmF/Topology_1.png" alt="Topology_1" border="0"></a>)
+
+**OPENFLOW NODES**
+**              **
 
 
 #### Markdown
