@@ -345,12 +345,21 @@ password : admin
 
 ![Image](https://image.ibb.co/bUQgmF/Topology_1.png)
 
-**OPENFLOW NODES : BR1 : openflow_128480596856940**
+** BR1 Ports : openflow_128480596856940**
 
 ![Image](https://image.ibb.co/jASBmF/nodes_Node_Id_openflow_128480596856940_11.png)
 
-**OPENFLOW NODES : BR2 : openflow_128480596857414**
+** BR1 Stats : openflow_128480596856940**
+
+![Image](https://image.ibb.co/dcTTYv/nodes_Node_Connector_Statistics_for_Node_Id_openflow_128480596856940_1.png)
+
+** BR2 Ports : openflow_128480596857414**
+
 ![Image](https://image.ibb.co/dMX0fa/nodes_Node_Id_openflow_128480596857414_1.png)
+
+** BR2 Stats : openflow_128480596857414**
+
+![Image](https://image.ibb.co/fX6nRF/nodes_Node_Connector_Statistics_for_Node_Id_openflow_128480596857414_br2.png)
 
 #### Markdown
 
@@ -389,4 +398,3 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 ### Support or Contact
 
 Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
-.
