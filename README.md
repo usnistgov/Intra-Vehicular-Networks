@@ -152,30 +152,22 @@ sudo ifdown wlan2
 sudo ifup wlan2
  ```  
 
-
-
-
-
-
-
-
-
-
-
-
-
 #### I- 1-2-B : OVS Configuration 
 
 ##### I- 1-2-B-a : Install Open VSwitch on the IoT Switch (Pi3)
 
 `sudo apt-get install ovsdbmonitor openvswitch-switch openvswitch-controller openvswitch-pki` 
 
-##### I- 1-2-B-b : 
-##### I- 1-2-B-c : 
-##### I- 1-2-B-d : 
-##### I- 1-2-B-e : 
-##### I- 1-2-B-f : 
-##### I- 1-2-B-g : 
+##### I- 1-2-B-b : Add Bridges
+##### I- 1-2-B-c : Add ports wlan1 and wlan2 to br1 and br2 respectively 
+##### I- 1-2-B-d : Assign addresses to local interfaces 
+##### I- 1-2-B-e : Create patch interfaces to connect br1 and br2
+##### I- 1-2-B-f : Connectivity Test
+##### I- 1-2-B-g : Checking the configguration : 
+- flows
+- ports 
+- bridges
+
 ##### I- 1-2-B-h : 
 ##### I- 1-2-B-i : 
 
