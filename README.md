@@ -14,7 +14,7 @@ Common config for both Pi1 and Pi2 :
 
 Download hostap + dsnmasq packages 
 
-'sudo apt-get install dnsmasq hostapd'
+`sudo apt-get install dnsmasq hostapd`
 
 `Code`sdasdfsdsdg
 
