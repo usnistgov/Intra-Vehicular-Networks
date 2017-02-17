@@ -10,15 +10,15 @@ Open vSwitch or OVS, is an open-source implementation of a distributed virtual m
 
 #### Setup Edge Nodes ( Pi1 and Pi2 ) as Wireless Access points
 
-#### I- 1-1-a : Pi1 and Pi2 :Download hostap + dsnmasq packages 
+##### : Pi1 and Pi2 :Download hostap + dsnmasq packages 
 
 `sudo apt-get install dnsmasq hostapd`
 
-#### I- 1-1-b : Pi1 and Pi2 : Add the following line to the bottom of the file :  /etc/dhcpcd.conf
+##### : Pi1 and Pi2 : Add the following line to the bottom of the file :  /etc/dhcpcd.conf
 
 `denyinterfaces wlan0`
 
-#### I- 1-1-c : Pi1 : edit the file /etc/network/interfaces/
+##### : Pi1 : edit the file /etc/network/interfaces/
 
 ```allow-eth0 
        iface eth0 inet static
@@ -35,7 +35,7 @@ Open vSwitch or OVS, is an open-source implementation of a distributed virtual m
       broadcast 10.11.201.255 
  ```    
  
-#### I- 1-1-d : Pi2 : edit the file /etc/network/interfaces/ 
+##### : Pi2 : edit the file /etc/network/interfaces/ 
 
 ```
 allow-eth0
@@ -53,7 +53,7 @@ allow-eth0
    broadcast 10.11.202.255
  ```
 
-#### I- 1-1-e : Edit the Pi1's /etc/hostapd/hostapd.conf
+##### : Edit the Pi1's /etc/hostapd/hostapd.conf
 
 ```
 interface=wlan0
@@ -66,7 +66,7 @@ wmm_enabled=1
 ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40] 
 macaddr_acl=0 
 ```
-#### I- 1-1-f : Edit the Pi2's /etc/hostapd/hostapd.conf
+##### : Edit the Pi2's /etc/hostapd/hostapd.conf
 
 ```
 interface=wlan0
@@ -81,11 +81,11 @@ macaddr_acl=0 
 ```
 
 
-#### I- 1-1-g : Pi1 and Pi2 : Load hostapd config on boot by editing the file : /etc/default/hostapd
+##### :  Pi1 and Pi2 : Load hostapd config on boot by editing the file : /etc/default/hostapd
 
 `DAEMON_CONF="/etc/hostapd/hostapd.conf"`
 
-#### I- 1-1-h : Pi1 : configure DNSMASQ by editing the file : /etc/dnsmasq.conf : 
+##### : Pi1 : configure DNSMASQ by editing the file : /etc/dnsmasq.conf : 
 ```
     interface=wlan0
     listen-address=10.11.201.1
@@ -96,7 +96,7 @@ macaddr_acl=0 
     dhcp-range=10.11.201.2,10.11.201.10,48h
 ```
 
-#### I- 1-1-i : Pi2 : configure DNSMASQ by editing the file : /etc/dnsmasq.conf : 
+##### : Pi2 : configure DNSMASQ by editing the file : /etc/dnsmasq.conf : 
 
 ```
     interface=wlan0
@@ -108,7 +108,7 @@ macaddr_acl=0 
     dhcp-range=10.11.202.12,10.11.202.19,48h
 ```
 
-#### I- 1-1-j : Commands to Run Pi1 and Pi2 as access point : 
+##### : Commands to Run Pi1 and Pi2 as access point : 
 
 ```
 sudo ifdown wlan0
@@ -118,12 +118,12 @@ sudo service dnsmasq restart
 sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
 
 ```
-### I- 1-2 : Setup IoT Switch (Pi3)
+###  Setup IoT Switch (Pi3)
 
 
-#### I- 1-2-A : Network configuration
+####   Network configuration
 
-##### I- 1-2-A-a : Edit the /etc/network/interfaces
+#####  Edit the /etc/network/interfaces
 
 ```allow-eth0 
        iface eth0 inet static
@@ -142,7 +142,7 @@ sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
  
  ```    
 
-##### I- 1-2-A-b : restart wlan1 and wlan2 to get their addresses from Pi1 access point and Pi2 access point respectively
+###### Restart wlan1 and wlan2 to get their addresses from Pi1 access point and Pi2 access point respectively
 
 ```
 sudo ifdown wlan1
@@ -152,25 +152,25 @@ sudo ifdown wlan2
 sudo ifup wlan2
  ```  
 
-#### I- 1-2-B : OVS Configuration 
+##### OVS Configuration 
 
-##### I- 1-2-B-a : Install Open VSwitch on the IoT Switch (Pi3)
+###### Install Open VSwitch on the IoT Switch (Pi3)
 
 `sudo apt-get install ovsdbmonitor openvswitch-switch openvswitch-controller openvswitch-pki` 
 
-##### I- 1-2-B-b : Add Bridges
+###### Add Bridges
 
 ```
 sudo ovs-vsctl add-br br1 
 sudo ovs-vsctl add-br br2
  ```  
 
-##### I- 1-2-B-c : Add ports wlan1 and wlan2 to br1 and br2 respectively 
+###### Add ports wlan1 and wlan2 to br1 and br2 respectively 
 ```
 sudo ovs-vsctl add-port br1 wlan1
 sudo ovs-vsctl add-port br2 wlan2
  ```
-##### I- 1-2-B-d : Assign wlan1 and wlan2 addresses to OVS local interfaces br1 and br2 respectively ( here Pi1 leased 10.11.201.9/24 to wlan1 and Pi2 leased 10.11.202.12/24 to wlan2 ): 
+###### Assign wlan1 and wlan2 addresses to OVS local interfaces br1 and br2 respectively ( here Pi1 leased 10.11.201.9/24 to wlan1 and Pi2 leased 10.11.202.12/24 to wlan2 ): 
 ```
 sudo ifconfig wlan1 0
 sudo ifconfig br1 10.11.201.9 netmask 255.255.255.0
@@ -179,7 +179,7 @@ sudo ifconfig br1 10.11.202.12 netmask 255.255.255.0
 ```    
     
 
-##### I- 1-2-B-e : Create patch interfaces to connect br1 and br2
+###### Create patch interfaces to connect br1 and br2
 
 ```
    sudo ovs-vsctl add-port br1 patch1
@@ -193,7 +193,7 @@ sudo ifconfig br1 10.11.202.12 netmask 255.255.255.0
 ```
 
 
-##### I- 1-2-B-f : Checking the configguration : 
+###### Checking the configguration : 
 
 **flows**
 ```
@@ -210,7 +210,7 @@ sudo ovs-ofctl dump-ports br2
 `sudo ovs-vsctl show`
 
 
-##### I- 1-2-B-g : connect br1 and br2 to the OpenDayLight Controller 
+###### connect br1 and br2 to the OpenDayLight Controller 
 ```
    sudo ovs-vsctl set-controller br1 tcp:10.11.200.121:6633
    sudo ovs-vsctl set-controller br2 tcp:10.11.200.121:6633
