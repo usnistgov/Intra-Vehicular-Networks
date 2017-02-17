@@ -345,8 +345,11 @@ password : admin
 
 ![Image](https://image.ibb.co/bUQgmF/Topology_1.png)
 
-**OPENFLOW NODES**
-**              **
+**OPENFLOW NODES : BR1 : openflow_128480596856940 **
+
+![Image](https://image.ibb.co/dcTTYv/nodes_Node_Connector_Statistics_for_Node_Id_openflow_128480596856940_1.png)
+
+**OPENFLOW NODES : BR2 :  **
 
 
 #### Markdown
