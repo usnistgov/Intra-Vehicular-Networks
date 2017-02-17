@@ -66,7 +66,7 @@ wmm_enabled=1
 ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40] 
 macaddr_acl=0 
 ```
-#### I- 1-1-e : Edit the Pi2's /etc/hostapd/hostapd.conf
+#### I- 1-1-f : Edit the Pi2's /etc/hostapd/hostapd.conf
 
 ```
 interface=wlan0
