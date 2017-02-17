@@ -12,7 +12,7 @@ Open vSwitch or OVS, is an open-source implementation of a distributed virtual m
 
 Common config for both Pi1 and Pi2 : 
 
-_I- 1-1-a packages to install and files to edit _ 
+#### I- 1-1-a packages to install and files to edit _ 
 
 **Download hostap + dsnmasq packages** 
 
@@ -42,7 +42,7 @@ allow-hotplug wlan0
  
  **Edit the Pi2 /etc/network/interfaces/**
 
-
+```
 allow-eth0
    iface eth0 inet static
    address 10.11.200.42 
@@ -56,7 +56,7 @@ allow-eth0
    netmask 255.255.255.0 
    network 10.11.202.0 
    broadcast 10.11.201.255
- 
+ ```
    
   
 
