@@ -85,7 +85,7 @@ macaddr_acl=0 
 
 `DAEMON_CONF="/etc/hostapd/hostapd.conf"`
 
-#### I- 1-1-h : Pi1 : configure DNSMASQ by editiing the file : /etc/dnsmasq.conf : 
+#### I- 1-1-h : Pi1 : configure DNSMASQ by editing the file : /etc/dnsmasq.conf : 
 ```
     interface=wlan0
     listen-address=10.11.201.1
@@ -96,7 +96,7 @@ macaddr_acl=0 
     dhcp-range=10.11.201.2,10.11.201.10,48h
 ```
 
-#### I- 1-1-i : Pi2 : configure DNSMASQ by editiing the file : /etc/dnsmasq.conf : 
+#### I- 1-1-i : Pi2 : configure DNSMASQ by editing the file : /etc/dnsmasq.conf : 
 
 ```
     interface=wlan0
@@ -107,6 +107,18 @@ macaddr_acl=0 
     bogus-priv
     dhcp-range=10.11.202.12,10.11.202.19,48h
 ```
+
+#### I- 1-1-j : Commands to Run Pi1 and Pi2 as access point : 
+
+```
+sudo ifdown wlan0
+sudo ifup wlan0
+sudo service dhcpd restart
+sudo service dnsmasq restart
+sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
+
+```
+
 
 ### Markdown
 
