@@ -42,7 +42,7 @@ allow-hotplug wlan0
  
  **Edit the Pi2 /etc/network/interfaces/**
 
-````
+`````
 allow-eth0
    iface eth0 inet static
    address 10.11.200.42 
