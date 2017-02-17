@@ -160,20 +160,25 @@ sudo ifup wlan2
 
 ##### I- 1-2-B-b : Add Bridges
 
-``sudo ovs-vsctl add-br br1 
-   sudo ovs-vsctl add-br br2
-``
-##### I- 1-2-B-c : Add ports wlan1 and wlan2 to br1 and br2 respectively 
-``sudo ovs-vsctl add-port br0 wlan1
- sudo ovs-vsctl add-port br1 wlan2
-``
-##### I- 1-2-B-d : Assign wlan1 and wlan2 addresses to OVS local interfaces br1 and br2 respectively ( here Pi1 leased 10.11.201.9/24 to wlan1 and Pi2 leased 10.11.202.12/24 to wlan2 ): 
+```
+sudo ovs-vsctl add-br br1 
+sudo ovs-vsctl add-br br2
+ ```  
 
-``` sudo ifconfig wlan1 0
+##### I- 1-2-B-c : Add ports wlan1 and wlan2 to br1 and br2 respectively 
+```
+sudo ovs-vsctl add-port br0 wlan1
+ sudo ovs-vsctl add-port br1 wlan2
+ ```
+##### I- 1-2-B-d : Assign wlan1 and wlan2 addresses to OVS local interfaces br1 and br2 respectively ( here Pi1 leased 10.11.201.9/24 to wlan1 and Pi2 leased 10.11.202.12/24 to wlan2 ): 
+```
+sudo ifconfig wlan1 0
     sudo ifconfig br1 10.11.201.9 netmask 255.255.255.0
     sudo ifconfig wlan2 0
     sudo ifconfig br1 10.11.202.12 netmask 255.255.255.0
-```
+```    
+    
+
 ##### I- 1-2-B-e : Create patch interfaces to connect br1 and br2
 ##### I- 1-2-B-f : Connectivity Test
 ##### I- 1-2-B-g : Checking the configguration : 
