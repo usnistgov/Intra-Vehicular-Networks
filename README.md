@@ -24,12 +24,12 @@ _I- 1-1-a packages to install and files to edit _
 
 **edit the Pi1 /etc/network/interfaces/**
 
-`allow-eth0 `
-`   iface eth0 inet static`
-`   address 10.11.200.41 `
-`  netmask 255.255.255.0  `
-`  gateway 10.11.200.200`
-`   dns-nameservers 10.11.200.200`
+```allow-eth0 
+   iface eth0 inet static
+   address 10.11.200.41 
+  netmask 255.255.255.0  
+  gateway 10.11.200.200
+   dns-nameservers 10.11.200.200```
 
 
 `allow-hotplug wlan0 `
