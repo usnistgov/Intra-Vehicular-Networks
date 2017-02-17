@@ -10,15 +10,15 @@ Open vSwitch or OVS, is an open-source implementation of a distributed virtual m
 
 #### Setup Edge Nodes ( Pi1 and Pi2 ) as Wireless Access points
 
-##### : Pi1 and Pi2 :Download hostap + dsnmasq packages 
+##### Pi1 and Pi2 :Download hostap + dsnmasq packages 
 
 `sudo apt-get install dnsmasq hostapd`
 
-##### : Pi1 and Pi2 : Add the following line to the bottom of the file :  /etc/dhcpcd.conf
+##### Pi1 and Pi2 : Add the following line to the bottom of the file :  /etc/dhcpcd.conf
 
 `denyinterfaces wlan0`
 
-##### : Pi1 : edit the file /etc/network/interfaces/
+##### Pi1 : edit the file /etc/network/interfaces/
 
 ```allow-eth0 
        iface eth0 inet static
@@ -35,7 +35,7 @@ Open vSwitch or OVS, is an open-source implementation of a distributed virtual m
       broadcast 10.11.201.255 
  ```    
  
-##### : Pi2 : edit the file /etc/network/interfaces/ 
+##### Pi2 : edit the file /etc/network/interfaces/ 
 
 ```
 allow-eth0
@@ -53,7 +53,7 @@ allow-eth0
    broadcast 10.11.202.255
  ```
 
-##### : Edit the Pi1's /etc/hostapd/hostapd.conf
+##### Edit the Pi1's /etc/hostapd/hostapd.conf
 
 ```
 interface=wlan0
@@ -66,7 +66,7 @@ wmm_enabled=1
 ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40] 
 macaddr_acl=0 
 ```
-##### : Edit the Pi2's /etc/hostapd/hostapd.conf
+##### Edit the Pi2's /etc/hostapd/hostapd.conf
 
 ```
 interface=wlan0
@@ -81,11 +81,11 @@ macaddr_acl=0 
 ```
 
 
-##### :  Pi1 and Pi2 : Load hostapd config on boot by editing the file : /etc/default/hostapd
+##### Pi1 and Pi2 : Load hostapd config on boot by editing the file : /etc/default/hostapd
 
 `DAEMON_CONF="/etc/hostapd/hostapd.conf"`
 
-##### : Pi1 : configure DNSMASQ by editing the file : /etc/dnsmasq.conf : 
+##### Pi1 : configure DNSMASQ by editing the file : /etc/dnsmasq.conf : 
 ```
     interface=wlan0
     listen-address=10.11.201.1
@@ -96,7 +96,7 @@ macaddr_acl=0 
     dhcp-range=10.11.201.2,10.11.201.10,48h
 ```
 
-##### : Pi2 : configure DNSMASQ by editing the file : /etc/dnsmasq.conf : 
+##### Pi2 : configure DNSMASQ by editing the file : /etc/dnsmasq.conf : 
 
 ```
     interface=wlan0
@@ -108,7 +108,7 @@ macaddr_acl=0 
     dhcp-range=10.11.202.12,10.11.202.19,48h
 ```
 
-##### : Commands to Run Pi1 and Pi2 as access point : 
+##### Commands to Run Pi1 and Pi2 as access point : 
 
 ```
 sudo ifdown wlan0
