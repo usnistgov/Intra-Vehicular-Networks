@@ -144,12 +144,25 @@ sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
 
 ##### I- 1-2-A-b : restart wlan1 and wlan2 to get their addresses from Pi1 access point and Pi2 access point respectively
 
-```sudo ifdown wlan1
+```
+sudo ifdown wlan1
 sudo ifup wlan1
 
 sudo ifdown wlan2
 sudo ifup wlan2
-```
+ ```  
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### I- 1-2-B : OVS Configuration 
 
