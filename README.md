@@ -225,7 +225,7 @@ sudo ovs-ofctl dump-ports br2
 
 `./karaf -Of13`
 
-#### install required features : 
+#### Install required features : 
 
 ```
 opendaylight-user@root>feature:list -i
