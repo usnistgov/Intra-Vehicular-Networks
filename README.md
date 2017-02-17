@@ -328,7 +328,15 @@ odl-yangtools-yang-parser             | 0.8.2-Beryllium-SR2 | x         | odl-ya
 
 ```
 
-### Markdown
+#### Now OpenDayLight is up and running with the required functionalities, use the following URL to access DLUX. 
+
+```http://10.11.200.121:8181/index.html
+   login :  admin
+   password : admin 
+```
+
+
+#### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
@@ -336,6 +344,8 @@ Markdown is a lightweight and easy-to-use syntax for styling your writing. It in
 
 
 
+.
+.
 markdown
 Syntax highlighted code block
 
