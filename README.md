@@ -44,10 +44,7 @@ allow-hotplug wlan0
 
 
 
-
-``` 
-   
-   allow-eth0
+```allow-eth0
    iface eth0 inet static
    address 10.11.200.42 
    netmask 255.255.255.0  
@@ -60,9 +57,8 @@ allow-hotplug wlan0
    netmask 255.255.255.0 
    network 10.11.202.0 
    broadcast 10.11.201.255
-   
    ```
-   
+  
 
 
 
