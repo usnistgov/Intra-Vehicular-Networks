@@ -53,20 +53,41 @@ allow-eth0
    broadcast 10.11.202.255
  ```
 
-#### I- 1-1-e : Edit the Pi1's /etc/hostapd/
+#### I- 1-1-e : Edit the Pi1's /etc/hostapd/hostapd.conf
 
+```
+interface=wlan0
+driver=nl80211
+ssid=Pi1-AP
+hw_mode=g
+channel=6
+ieee80211n=1
+wmm_enabled=1
+ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40] 
+macaddr_acl=0 
+```
+#### I- 1-1-e : Edit the Pi2's /etc/hostapd/hostapd.conf
 
-
-
-
-
-
-
+```
+interface=wlan0
+driver=nl80211
+ssid=Pi2-AP
+hw_mode=g
+channel=6
+ieee80211n=1
+wmm_enabled=1
+ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40] 
+macaddr_acl=0 
+```
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
+```
+
+
+
+markdown
 Syntax highlighted code block
 
 # Header 1
