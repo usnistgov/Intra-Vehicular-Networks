@@ -79,6 +79,12 @@ wmm_enabled=1
 ht_capab=[HT40][SHORT-GI-20][DSSS_CCK-40] 
 macaddr_acl=0 
 ```
+
+
+#### I- 1-1-g : Pi1 and Pi2 : Load hostapd config on boot by editing the file : /etc/default/hostapd
+
+`DAEMON_CONF="/etc/hostapd/hostapd.conf"`
+
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
