@@ -22,7 +22,7 @@ _I- 1-1-a packages to install and files to edit _
 
 `denyinterfaces wlan0`
 
-**edit the Pi1 /etc/network/interfaces/**
+**Edit the Pi1 /etc/network/interfaces/**
 
 ```allow-eth0 
        iface eth0 inet static
@@ -37,25 +37,32 @@ allow-hotplug wlan0
       address 10.11.201.1 
       netmask 255.255.255.0 
       network 10.11.201.0 
-      broadcast 10.11.201.255 '''
-
+      broadcast 10.11.201.255 
+      ```
+      
 **edit the Pi2 /etc/network/interfaces/**
 
 
-`allow-eth0 
+
+
+``` 
+   
+   allow-eth0
    iface eth0 inet static
    address 10.11.200.42 
    netmask 255.255.255.0  
    gateway 10.11.200.200
    dns-nameservers 10.11.200.200
-
-
-allow-hotplug wlan0 
+   
+   allow-hotplug wlan0 
    iface wlan0 inet static
    address 10.11.202.11 
    netmask 255.255.255.0 
    network 10.11.202.0 
-   broadcast 10.11.201.255`
+   broadcast 10.11.201.255
+   
+   ```
+   
 
 
 
