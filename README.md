@@ -85,6 +85,29 @@ macaddr_acl=0 
 
 `DAEMON_CONF="/etc/hostapd/hostapd.conf"`
 
+#### I- 1-1-h : Pi1 : configure DNSMASQ by editiing the file : /etc/dnsmasq.conf : 
+```
+    interface=wlan0
+    listen-address=10.11.201.1
+    bind-interfaces
+    server=8.8.8.8
+    domain-needed
+    bogus-priv
+    dhcp-range=10.11.201.2,10.11.201.10,48h
+```
+
+#### I- 1-1-i : Pi2 : configure DNSMASQ by editiing the file : /etc/dnsmasq.conf : 
+
+```
+    interface=wlan0
+    listen-address=10.11.202.11
+    bind-interfaces
+    server=8.8.8.8
+    domain-needed
+    bogus-priv
+    dhcp-range=10.11.202.12,10.11.202.19,48h
+```
+
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
