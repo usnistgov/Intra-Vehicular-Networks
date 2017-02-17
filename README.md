@@ -168,10 +168,7 @@ sudo ifup wlan2
 
 ##### I- 1-2-B-a : Install Open VSwitch on the IoT Switch (Pi3)
 
-`
-sudo apt-get install ovsdbmonitor openvswitch-switch openvswitch-controller openvswitch-pki 
-
-`
+`sudo apt-get install ovsdbmonitor openvswitch-switch openvswitch-controller openvswitch-pki` 
 
 ##### I- 1-2-B-b : 
 ##### I- 1-2-B-c : 
