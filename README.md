@@ -118,6 +118,62 @@ sudo service dnsmasq restart
 sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
 
 ```
+### I- 1-2 : Setup IoT Switch (Pi3)
+
+
+#### I- 1-2-A : Network configuration
+
+##### I- 1-2-A-a : Edit the /etc/network/interfaces
+
+```allow-eth0 
+       iface eth0 inet static
+       address 10.11.200.43 
+       netmask 255.255.255.0  
+       gateway 10.11.200.200
+       dns-nameservers 10.11.200.200
+
+      auto wlan1 
+      iface wlan1 inet dhcp
+      wireless-essid Pi1-AP
+      
+      auto wlan2 
+      iface wlan2 inet dhcp
+      wireless-essid Pi2-AP
+ 
+ ```    
+
+##### I- 1-2-A-b : restart wlan1 and wlan2 to get their addresses from Pi1 access point and Pi2 access point respectively
+
+```sudo ifdown wlan1
+sudo ifup wlan1
+
+sudo ifdown wlan2
+sudo ifup wlan2
+```
+
+#### I- 1-2-B : OVS Configuration 
+
+##### I- 1-2-B-a : Install Open VSwitch on the IoT Switch (Pi3)
+
+`
+sudo apt-get install ovsdbmonitor openvswitch-switch openvswitch-controller openvswitch-pki 
+
+`
+
+##### I- 1-2-B-b : 
+##### I- 1-2-B-c : 
+##### I- 1-2-B-d : 
+##### I- 1-2-B-e : 
+##### I- 1-2-B-f : 
+##### I- 1-2-B-g : 
+##### I- 1-2-B-h : 
+##### I- 1-2-B-i : 
+
+
+
+
+
+
 
 
 ### Markdown
