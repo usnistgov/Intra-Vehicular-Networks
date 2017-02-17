@@ -10,11 +10,15 @@ Open vSwitch or OVS, is an open-source implementation of a distributed virtual m
 
 ### I- 1-1 Setup Edge Nodes ( Pi1 and Pi2 ) as Wireless Access points
 
+Common config for both Pi1 and Pi2 : 
+
+Download hostap + dsnmasq packages 
+
+'sudo apt-get install dnsmasq hostapd'
 
 
-You can use the [editor on GitHub](https://github.com/usnistgov/Intra-Vehicular-Networks/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+packages to install 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
 ### Markdown
 
