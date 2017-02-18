@@ -439,23 +439,37 @@ cookie=0x0,duration=495.149s,table=0, n_packets=1077, n_bytes=110259, idle_age=0
 
 
 ```
-<priority>0</priority>             : 
-<hard-timeout>0</hard-timeout>     :
-<idle-timeout>0</idle-timeout>     :
-<id>1</id>                         :
-<cookie_mask>0</cookie_mask>       :
-<cookie>0</cookie>                 :
-<table_id>0</table_id>             :
-<instructions>                     :
-<instruction>                      :
-<order>0</order>                   :
-<apply-actions>                    :
-<action>                           :
-<order>0</order>                   :
-<output-action>                    :
-<output-node-connector>NORMAL</output-node-connector> : 
-        
-```
+<priority>                        
+Value is a number between 0 and 65535 inclusive.A higher flow's value will match before a lower one
+<hard-timeout>                     
+causes the flow entry to be removed after the given number of seconds, regardless of how many packets it has matched
+<idle-timeout>0</idle-timeout>    
+causes the flow entry to be removed when it has matched no packets in the given number of seconds.
+<id>1</id>                         
+Flow id according to ODL.
+<cookie_mask>                      
+Used to perform group operations on flows. This allows more options in how you use cookie
+<cookie>                           
+opaque data value chosen by the controller. May be used by the controller to filter flow statistics, flow
+modification and flow deletion, not used when processing packets. For example, the controller could choose to
+modify or delete all flows matching a certain cookie
+
+<table_id>0</table_id>            
+Flow tables are composed of many flows.Each table has an id.  The flow table is consisted of flow entries, these entries contain the following attributes :  Match fields, Priority, Counters, Instructions,Timeouts, and the cookie. 
+<order>                   
+order of the action. 
+<apply-actions>                    
+Applies the specific action immediately, without any change to the Action Set.This instruction may be used to modify the packet between two tables or to execute multiple actions of
+the same type. The actions are specified as an action list.
+<action>   
+Actions describe packet forwarding, packet modification and group table processing. There are several actions that
+every OpenFlow Switch is required to support:
+  * Output port_no:
+  * Group group_id:
+  * Drop:
+<output-action>   
+The Output action forwards a packet to a specified OpenFlow port. OpenFlow switches must
+support forwarding to physical ports, switch-defined logical ports and the required reserved ports.
 
 #### Updating flows example : 
 
@@ -468,10 +482,9 @@ URL :     Same as the PUT request.
 BODY :    Updated body , keeping flow id and flow table and cookie. Flow priority is one of the parameters that can be updated.
 
 
-#### deleting flows example : 
+#### deleting flows example: 
 
 Same as PUT command, change PUT to DELETE.
-
 
 
 #### Getting all active flows on all open_flow bridges from restconf config database : 
@@ -491,19 +504,6 @@ The details of the flows are distplayed in the response body.
 
 
 
-#### Identifying Metadata in the body of the XML request : 
-
-
-
-
-
-
-
-
-
-#### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
 ```
 
