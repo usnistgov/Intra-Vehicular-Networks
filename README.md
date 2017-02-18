@@ -454,8 +454,8 @@ opaque data value chosen by the controller. May be used by the controller to fil
 modification and flow deletion, not used when processing packets. For example, the controller could choose to
 modify or delete all flows matching a certain cookie
 
-<table_id>0</table_id>            
-Flow tables are composed of many flows.Each table has an id.  The flow table is consisted of flow entries, these entries contain the following attributes :  Match fields, Priority, Counters, Instructions,Timeouts, and the cookie. 
+<table_id>           
+Each table has an id.  The flow table is consisted of flow entries, these entries contain the following attributes :  Match fields, Priority, Counters, Instructions,Timeouts, and the cookie. 
 <order>                   
 order of the action. 
 <apply-actions>                    
