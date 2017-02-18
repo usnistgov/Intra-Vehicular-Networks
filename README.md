@@ -503,4 +503,22 @@ Feedback :
 
 The details of the flows are distplayed in the response body.  
 
+### Experiment to test the infrastructure.
+
+#### 1 Start the Pi1 and Pi2 Access Point.
+#### 2 Turn On wlan1 and wlan2 client adapters on Pi3
+#### 3 remove address configuration from wlan adapters and assign the same addresses to local OVS switches according to the configuration described before.
+#### 4 make sure the
+#### 5 ping Pi2 from Pi1 and vice-versa.make sure the pings are successful as seen below : 
+
+**Pi1 : ping to the gateway and to Pi2
+
+![Image](https://image.ibb.co/eTAvwF/ping_Pi1_Success.png)
+
+**Pi2 : ping to the gateway and to Pi1
+
+![Image](https://image.ibb.co/jZZAVa/ping_Pi2_Success.png)
+
+
+#### 6 Turn on/off the ping by adding/deleting the appropriate flow as described before using POSTMAN.
 
