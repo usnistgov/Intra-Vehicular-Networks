@@ -389,7 +389,7 @@ URL : http://10.11.200.121:8181/restconf/config/opendaylight-inventory:nodes/nod
 
 BODY : 
 
-xml 
+```
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flow xmlns="urn:opendaylight:flow:inventory">
     <priority>0</priority>
@@ -413,7 +413,7 @@ xml
         </instruction>
     </instructions>
 </flow>
-
+```
 Feedback : a successful request will return the HTTP Success Code 200 OK. 
 
 
