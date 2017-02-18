@@ -361,6 +361,17 @@ password : admin
 
 ![Image](https://image.ibb.co/fX6nRF/nodes_Node_Connector_Statistics_for_Node_Id_openflow_128480596857414_br2.png)
 
+### Setup POSTMAN
+
+Postman helps adding flows in OpenDaylight RestConf REST API.
+With Postman, wou can construct request and save them for future use and analyze the responses sent by the  restconf API. 
+We will use POSTMAN to add, delete, and update flows using different HTTP methods for RESTful services.
+
+#### Add the POSTMAN ADDON to chrome using the link below and push the launch app button : 
+
+https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en
+
+#### 
 #### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
