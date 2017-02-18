@@ -414,7 +414,9 @@ BODY :
     </instructions>
 </flow>
 ```
-Feedback : a successful request will return the HTTP Success Code 200 OK. 
+Feedback : 
+
+A successful request will return the HTTP Success Code 200 OK. 
 
 
 We can check whether the flow has been added in the br1 switch by issuing the following command : 
