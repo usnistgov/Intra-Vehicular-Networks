@@ -371,7 +371,69 @@ We will use POSTMAN to add, delete, and update flows using different HTTP method
 
 https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en
 
-#### 
+#### Adding flows example : 
+
+The example below shows adding a flow with to the IoT Switch with the brdige open flow identifier : openflow:128480596856940 , which corresponds to br1 in the Pi3. 
+
+The NORMAL" action in the flow causes the bridge to behave like a simple MAC learning switch. It allplies to all ports because no in_port was specified and that is like a wildcard for all ports.
+
+METHOD : PUT
+
+Headers : 
+
+  - Accept : application/xml
+  - Content Type : application / xml
+  - Authorization : Basic Auth. Login : admin / password : admin
+
+URL : http://10.11.200.121:8181/restconf/config/opendaylight-inventory:nodes/node/openflow:128480596856940/table/0/flow/1
+
+BODY : 
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flow xmlns="urn:opendaylight:flow:inventory">
+    <priority>0</priority>
+     <hard-timeout>0</hard-timeout>
+    <idle-timeout>0</idle-timeout>
+    <id>1</id>
+    <cookie_mask>0</cookie_mask>
+    <cookie>0</cookie>
+    <table_id>0</table_id>
+    <instructions>
+        <instruction>
+            <order>0</order>
+            <apply-actions>
+               <action>
+                    <order>0</order>
+                    <output-action>
+                        <output-node-connector>NORMAL</output-node-connector>
+                    </output-action>
+                </action>
+            </apply-actions>
+        </instruction>
+    </instructions>
+</flow>
+
+Feedback : a successful request will return the HTTP Success Code 200 OK. 
+
+
+We can check whether the flow has been added in the br1 switch by issuing the following command : 
+
+Before adding the flow
+
+```
+Pi@pi3:~sudo ovs-ofctl dump-flows br1`
+NXST_FLOW reply (xid=0x4)
+```
+After adding the flow
+
+
+```
+Pi@pi3:~sudo ovs-ofctl dump-flows br1`
+cookie=0x0,duration=495.149s,table=0, n_packets=1077, n_bytes=110259, idle_age=0, priority=0 actions=NORMAL
+
+```
+
+
 #### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
