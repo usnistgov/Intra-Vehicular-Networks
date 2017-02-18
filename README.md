@@ -435,6 +435,70 @@ Pi@pi3:~sudo ovs-ofctl dump-flows br1`
 cookie=0x0,duration=495.149s,table=0, n_packets=1077, n_bytes=110259, idle_age=0, priority=0 actions=NORMAL
 
 ```
+#### Identifying Metadata : 
+
+
+
+<priority>0</priority>             : 
+<hard-timeout>0</hard-timeout>     :
+<idle-timeout>0</idle-timeout>     :
+<id>1</id>                         :
+<cookie_mask>0</cookie_mask>       :
+<cookie>0</cookie>                 :
+<table_id>0</table_id>             :
+<instructions>                     :
+<instruction>                      :
+<order>0</order>                   :
+<apply-actions>                    :
+<action>                           :
+<order>0</order>                   :
+<output-action>                    :
+<output-node-connector>NORMAL</output-node-connector> : 
+        
+
+
+#### Updating flows example : 
+
+METHOD :  POST
+
+Headers : Same as the PUT request.
+
+URL :     Same as the PUT request. 
+
+BODY :    Updated body , keeping flow id and flow table and cookie. Flow priority is one of the parameters that can be updated.
+
+
+#### deleting flows example : 
+
+Same as PUT command, change PUT to DELETE.
+
+
+
+#### Getting all active flows on all open_flow bridges from restconf config database : 
+
+
+METHOD : 
+
+Headers : same as the PUT request. 
+
+URL : http://10.11.200.121:8181/restconf/config/opendaylight-inventory:nodes/node/openflow:128480596856940/table/0/flow/1
+
+BODY : Not required. 
+
+Feedback : 
+
+The details of the flows are distplayed in the response body.  
+
+
+
+#### Identifying Metadata in the body of the XML request : 
+
+
+
+
+
+
+
 
 
 #### Markdown
