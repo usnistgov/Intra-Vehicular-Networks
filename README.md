@@ -470,6 +470,7 @@ every OpenFlow Switch is required to support:
 <output-action>   
 The Output action forwards a packet to a specified OpenFlow port. OpenFlow switches must
 support forwarding to physical ports, switch-defined logical ports and the required reserved ports.
+```
 
 #### Updating flows example : 
 
