@@ -453,4 +453,4 @@ The details of the  flows are distplayed in the response body.
 ![Image](https://image.ibb.co/jZZAVa/ping_Pi2_Success.png)
 
 
-#### 6 Turn on/off the ping by adding/deleting the appropriate flow as described before using POSTMAN.
+#### 6. Turn on/off the ping by adding/deleting the appropriate flow as described before using POSTMAN.
