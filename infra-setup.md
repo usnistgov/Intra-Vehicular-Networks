@@ -1,4 +1,7 @@
-# Infrastructure Setup 
+# Open vSwitch Setup 
+## Introduction 
+
+Open vSwitch or OVS, is an open-source implementation of a distributed virtual multilayer switch. Providing L2 capabilities for hardware virtualization environments is its main feature, It supports multiple protocols and standards as well such as OpenFlow sFlow, SPAN, RSPAN, CLI, LACP and 802.1ag
 
 ![Image](https://image.ibb.co/mzFNRF/Untitled.png)
 
@@ -434,7 +437,7 @@ BODY : Not required.
 
 Feedback : 
 
-The details of the  flows are distplayed in the response body.  
+The details of the flows are distplayed in the response body.  
 
 ### Experiment to test the infrastructure.
 
@@ -453,4 +456,4 @@ The details of the  flows are distplayed in the response body.
 ![Image](https://image.ibb.co/jZZAVa/ping_Pi2_Success.png)
 
 
-#### 6. Turn on/off the ping by adding/deleting the appropriate flow as described before using POSTMAN.
+#### 6 Turn on/off the ping by adding/deleting the appropriate flow as described before using POSTMAN.
