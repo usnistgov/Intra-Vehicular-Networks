@@ -181,7 +181,7 @@ Assign wlan1 and wlan2 addresses to OVS local interfaces br1 and br2 respectivel
 sudo ifconfig wlan1 0
 sudo ifconfig br1 10.11.201.9 netmask 255.255.255.0
 sudo ifconfig wlan2 0
-sudo ifconfig br1 10.11.202.12 netmask 255.255.255.0
+sudo ifconfig br2 10.11.202.12 netmask 255.255.255.0
 ```    
     
 
