@@ -55,7 +55,7 @@ CPPFLAGS += -Iinclude \
 PROGRAMS_ISOTP = isotpdump isotprecv isotpsend isotpsniffer isotptun isotpserver isotpperf
 PROGRAMS_CANGW = cangw
 PROGRAMS_SLCAN = slcan_attach slcand
-PROGRAMS = can-calc-bit-timing candump candump2 cansniffer cansend canplayer cangen canbusload canwrapper\
+PROGRAMS = can-calc-bit-timing candump can2IPwrapper cansniffer cansend canplayer cangen canbusload IPtoCanwrapper\
 	   log2long log2asc asc2log\
 	   canlogserver bcmserver\
 	   $(PROGRAMS_ISOTP)\
@@ -74,11 +74,11 @@ install:
 
 distclean:
 	rm -f $(PROGRAMS) *.o *~
-canwrapper.o:   lib.h
+IPtoCanwrapper.o:   lib.h
 cansend.o:	lib.h
 cangen.o:	lib.h
 candump.o:	lib.h
-candump2.o:	lib.h
+can2IPwrapper.o:	lib.h
 canplayer.o:	lib.h
 canlogserver.o:	lib.h
 canbusload.o:	lib.h
@@ -86,11 +86,11 @@ log2long.o:	lib.h
 log2asc.o:	lib.h
 asc2log.o:	lib.h
 canframelen.o:  canframelen.h
-canwrapper:     canwrapper.o    lib.o
+IPtoCanwrapper:     IPtoCanwrapper.o    lib.o
 cansend:	cansend.o	lib.o
 cangen:		cangen.o	lib.o
 candump:	candump.o	lib.o
-candump2:	candump2.o	lib.o
+can2IPwrapper:	can2IPwrapper.o	lib.o
 canplayer:	canplayer.o	lib.o
 canlogserver:	canlogserver.o	lib.o
 log2long:	log2long.o	lib.o
@@ -153,7 +153,7 @@ CPPFLAGS += -Iinclude \
 PROGRAMS_ISOTP = isotpdump isotprecv isotpsend isotpsniffer isotptun isotpserver isotpperf
 PROGRAMS_CANGW = cangw
 PROGRAMS_SLCAN = slcan_attach slcand
-PROGRAMS = can-calc-bit-timing candump candump2 cansniffer cansend canplayer cangen canbusload canwrapper\
+PROGRAMS = can-calc-bit-timing candump can2IPwrapper cansniffer cansend canplayer cangen canbusload IPtoCanwrapper\
 	   log2long log2asc asc2log\
 	   canlogserver bcmserver\
 	   $(PROGRAMS_ISOTP)\
@@ -172,11 +172,11 @@ install:
 
 distclean:
 	rm -f $(PROGRAMS) *.o *~
-canwrapper.o:   lib.h
+IPtoCanwrapper.o:   lib.h
 cansend.o:	lib.h
 cangen.o:	lib.h
 candump.o:	lib.h
-candump2.o:	lib.h
+can2IPwrapper.o:	lib.h
 canplayer.o:	lib.h
 canlogserver.o:	lib.h
 canbusload.o:	lib.h
@@ -184,11 +184,11 @@ log2long.o:	lib.h
 log2asc.o:	lib.h
 asc2log.o:	lib.h
 canframelen.o:  canframelen.h
-canwrapper:     canwrapper.o    lib.o
+IPtoCanwrapper:     IPtoCanwrapper.o    lib.o
 cansend:	cansend.o	lib.o
 cangen:		cangen.o	lib.o
 candump:	candump.o	lib.o
-candump2:	candump2.o	lib.o
+can2IPwrapper:	can2IPwrapper.o	lib.o
 canplayer:	canplayer.o	lib.o
 canlogserver:	canlogserver.o	lib.o
 log2long:	log2long.o	lib.o
@@ -251,7 +251,7 @@ CPPFLAGS += -Iinclude \
 PROGRAMS_ISOTP = isotpdump isotprecv isotpsend isotpsniffer isotptun isotpserver isotpperf
 PROGRAMS_CANGW = cangw
 PROGRAMS_SLCAN = slcan_attach slcand
-PROGRAMS = can-calc-bit-timing candump candump2 cansniffer cansend canplayer cangen canbusload canwrapper\
+PROGRAMS = can-calc-bit-timing candump can2IPwrapper cansniffer cansend canplayer cangen canbusload IPtoCanwrapper\
 	   log2long log2asc asc2log\
 	   canlogserver bcmserver\
 	   $(PROGRAMS_ISOTP)\
@@ -270,11 +270,11 @@ install:
 
 distclean:
 	rm -f $(PROGRAMS) *.o *~
-canwrapper.o:   lib.h
+IPtoCanwrapper.o:   lib.h
 cansend.o:	lib.h
 cangen.o:	lib.h
 candump.o:	lib.h
-candump2.o:	lib.h
+can2IPwrapper.o:	lib.h
 canplayer.o:	lib.h
 canlogserver.o:	lib.h
 canbusload.o:	lib.h
@@ -282,11 +282,11 @@ log2long.o:	lib.h
 log2asc.o:	lib.h
 asc2log.o:	lib.h
 canframelen.o:  canframelen.h
-canwrapper:     canwrapper.o    lib.o
+IPtoCanwrapper:     IPtoCanwrapper.o    lib.o
 cansend:	cansend.o	lib.o
 cangen:		cangen.o	lib.o
 candump:	candump.o	lib.o
-candump2:	candump2.o	lib.o
+can2IPwrapper:	can2IPwrapper.o	lib.o
 canplayer:	canplayer.o	lib.o
 canlogserver:	canlogserver.o	lib.o
 log2long:	log2long.o	lib.o
@@ -349,7 +349,7 @@ CPPFLAGS += -Iinclude \
 PROGRAMS_ISOTP = isotpdump isotprecv isotpsend isotpsniffer isotptun isotpserver isotpperf
 PROGRAMS_CANGW = cangw
 PROGRAMS_SLCAN = slcan_attach slcand
-PROGRAMS = can-calc-bit-timing candump candump2 cansniffer cansend canplayer cangen canbusload canwrapper\
+PROGRAMS = can-calc-bit-timing candump can2IPwrapper cansniffer cansend canplayer cangen canbusload IPtoCanwrapper\
 	   log2long log2asc asc2log\
 	   canlogserver bcmserver\
 	   $(PROGRAMS_ISOTP)\
@@ -368,11 +368,11 @@ install:
 
 distclean:
 	rm -f $(PROGRAMS) *.o *~
-canwrapper.o:   lib.h
+IPtoCanwrapper.o:   lib.h
 cansend.o:	lib.h
 cangen.o:	lib.h
 candump.o:	lib.h
-candump2.o:	lib.h
+can2IPwrapper.o:	lib.h
 canplayer.o:	lib.h
 canlogserver.o:	lib.h
 canbusload.o:	lib.h
@@ -380,11 +380,11 @@ log2long.o:	lib.h
 log2asc.o:	lib.h
 asc2log.o:	lib.h
 canframelen.o:  canframelen.h
-canwrapper:     canwrapper.o    lib.o
+IPtoCanwrapper:     IPtoCanwrapper.o    lib.o
 cansend:	cansend.o	lib.o
 cangen:		cangen.o	lib.o
 candump:	candump.o	lib.o
-candump2:	candump2.o	lib.o
+can2IPwrapper:	can2IPwrapper.o	lib.o
 canplayer:	canplayer.o	lib.o
 canlogserver:	canlogserver.o	lib.o
 log2long:	log2long.o	lib.o
