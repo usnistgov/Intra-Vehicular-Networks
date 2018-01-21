@@ -1,0 +1,8 @@
+#!/bin/bash
+modprobe can
+modprobe vcan
+ip link add dev vcan0 type vcan 
+ip link set up vcan0
+ip link add dev vcan1 type vcan 
+ip link set up vcan1
+#./can2IPwrapper vcan0 -L -h  127.0.0.1
