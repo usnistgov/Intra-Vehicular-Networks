@@ -63,15 +63,17 @@
 #include <linux/can.h>
 #include <linux/can/raw.h>
 #include "lib.h"
-
-#define DEFAULT_GAP 200 /* ms */
-
+unsigned char timestamp = 0;
+struct timeval tv, last_tv;
+#define DEFAULT_GAP 0 /* ms */
+#define DELAY_GAP 200 /* ms */
+	int mtu, maxdlen;
 #define MODE_RANDOM	0
 #define MODE_INCREMENT	1
 #define MODE_FIX	2
-
+static struct canfd_frame frame;
 extern int optind, opterr, optopt;
-
+unsigned char verbose = 0;
 static volatile int running = 1;
 static unsigned long long enobufs_count;
 
@@ -98,6 +100,8 @@ void print_usage(char *prg)
 		" with <timeout> ms)\n");
 	fprintf(stderr, "         -n <count>    (terminate after <count> CAN frames "
 		"- default infinite)\n");
+	fprintf(stderr, "         -d <degradation>    (degrade the traffic by <degradation> percent "
+			"- default infinite)\n");
 	fprintf(stderr, "         -i            (ignore -ENOBUFS return values on"
 		" write() syscalls)\n");
 	fprintf(stderr, "         -x            (disable local loopback of "
@@ -131,11 +135,123 @@ void sigterm(int signo)
 	running = 0;
 }
 
+
+
+void gettime(int skipped)
+{
+	 time_t rawtime;
+		  struct tm * timeinfo;
+
+		  time ( &rawtime );
+		  timeinfo = localtime ( &rawtime );
+	//	  printf ( "Current local time and date: %s", asctime (timeinfo) );
+
+
+
+
+		  struct timespec tsp;
+
+		     clock_gettime(CLOCK_REALTIME, &tsp);   //Call clock_gettime to fill tsp
+
+		    //fprintf(stdout, "time=%d.%d\n", tsp.tv_sec, tsp.tv_nsec);
+		    fprintf(stdout, "%d.%d ", (int) tsp.tv_sec, (int) tsp.tv_nsec);
+		    //fprint_long_canframe(stdout, &frame, "\n", (verbose > 2)?1:0, maxdlen);
+		   if(maxdlen){
+
+			//  printf(" %d ",frame.len);
+
+
+
+			//  printf(" %d ", frame.data[1]);
+
+			   if(skipped)
+			   {
+		    fprint_canframe(stdout, &frame, " skipped \n", 1, maxdlen);
+		   // printf("length %d %s" , maxdlen, );
+
+			   }
+			   else
+			   {
+				   fprint_canframe(stdout, &frame, "\n", 1, maxdlen);
+
+			   }
+		    //   printf("%d\n",maxdlen);
+		     fflush(stdout);
+		   }
+
+
+
+}
+//void coucout()
+//{
+////		fprint_long_canframe(stdout, &frame, "\n", (verbose > 2)?1:0, maxdlen);
+////		fprint_canframe(stdout, &frame, "\n", 1, maxdlen);
+////		switch (timestamp) {
+////							case 'a': /* absolute with timestamp */
+////								printf("(%010ld.%06ld) okokokok ", tv.tv_sec, tv.tv_usec);
+//								break;
+//							case 'A': /* absolute with date */
+//							{
+//								struct tm tm;
+//								char timestring[25];
+//								tm = *localtime(&tv.tv_sec);
+//								strftime(timestring, 24, "%Y-%m-%d %H:%M:%S", &tm);
+//								printf("(%s.%06ld) ", timestring, tv.tv_usec);
+//							}
+//							break;
+//							case 'd': /* delta */
+//							case 'z': /* starting with zero */
+//							{
+//								struct timeval diff;
+//								if (last_tv.tv_sec == 0)   /* first init */
+//									last_tv = tv;
+//								diff.tv_sec  = tv.tv_sec  - last_tv.tv_sec;
+//								diff.tv_usec = tv.tv_usec - last_tv.tv_usec;
+//								if (diff.tv_usec < 0)
+//									diff.tv_sec--, diff.tv_usec += 1000000;
+//								if (diff.tv_sec < 0)
+//									diff.tv_sec = diff.tv_usec = 0;
+//								printf("(%03ld.%06ld) ", diff.tv_sec, diff.tv_usec);
+//
+//								if (timestamp == 'd')
+//									last_tv = tv; /* update for delta calculation */
+//							}
+//							break;
+//							default: /* no timestamp output */
+//								break;
+//							}
+//
+//		//out_fflush:
+//		//	fflush(stdout);
+//}
+
+
 int main(int argc, char **argv)
 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	double gap = DEFAULT_GAP;
+	double delay = DELAY_GAP;
 	unsigned long polltimeout = 0;
 	unsigned char ignore_enobufs = 0;
+
 	unsigned char extended = 0;
 	unsigned char canfd = 0;
 	unsigned char brs = 0;
@@ -144,12 +260,14 @@ int main(int argc, char **argv)
 	unsigned char data_mode = MODE_RANDOM;
 	unsigned char dlc_mode = MODE_RANDOM;
 	unsigned char loopback_disable = 0;
-	unsigned char verbose = 0;
+
 	unsigned char rtr_frame = 0;
 	int count = 0;
-	int mtu, maxdlen;
+	int degradation = 1;
+
 	uint64_t incdata = 0;
 	int incdlc = 0;
+	unsigned long rnd;
 	unsigned char fixdata[CANFD_MAX_DLEN];
 
 	int opt;
@@ -157,15 +275,18 @@ int main(int argc, char **argv)
 	struct pollfd fds;
 
 	struct sockaddr_can addr;
-	static struct canfd_frame frame;
+
 	int nbytes;
 	int i;
 	struct ifreq ifr;
 
+
+	struct timeval timeout, timeout_config = { 0, 0 }, *timeout_current = NULL;
 	struct timespec ts;
 	struct timeval now;
+	FILE *logfile = NULL;
 
-	/* set seed value for pseudo random numbers */
+
 	gettimeofday(&now, NULL);
 	srandom(now.tv_usec);
 
@@ -173,8 +294,21 @@ int main(int argc, char **argv)
 	signal(SIGHUP, sigterm);
 	signal(SIGINT, sigterm);
 
-	while ((opt = getopt(argc, argv, "ig:ebfmI:L:D:xp:n:vRh?")) != -1) {
+
+	last_tv.tv_sec  = 1;
+	last_tv.tv_usec = 1;
+
+	while ((opt = getopt(argc, argv, "t:i:g:G:ebfmI:L:D:xp:n:d:vRh?")) != -1) {
 		switch (opt) {
+		case 't':
+					timestamp = optarg[0];
+					if ((timestamp != 'a') && (timestamp != 'A') &&
+					    (timestamp != 'd') && (timestamp != 'z')) {
+						fprintf(stderr, "%s: unknown timestamp mode '%c' - ignored\n",
+						       basename(argv[0]), optarg[0]);
+						timestamp = 0;
+					}
+		     break;
 
 		case 'i':
 			ignore_enobufs = 1;
@@ -183,6 +317,9 @@ int main(int argc, char **argv)
 		case 'g':
 			gap = strtod(optarg, NULL);
 			break;
+		case 'G':
+				delay = strtod(optarg, NULL);
+				break;
 
 		case 'e':
 			extended = 1;
@@ -261,6 +398,14 @@ int main(int argc, char **argv)
 				return 1;
 			}
 			break;
+		case 'd':
+				degradation = atoi(optarg);
+				if ((degradation < 0)||(degradation>100) ) {
+					printf("wrong degradation %d \n",degradation);
+
+					return 1;
+			}
+			break;
 
 		case '?':
 		case 'h':
@@ -276,8 +421,8 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	ts.tv_sec = gap / 1000;
-	ts.tv_nsec = (long)(((long long)(gap * 1000000)) % 1000000000ll);
+	ts.tv_sec = (gap+delay) / 1000;
+	ts.tv_nsec = (long)(((long long)((gap+delay) * 1000000)) % 1000000000ll);
 
 	/* recognize obviously missing commandline option */
 	if (id_mode == MODE_FIX && frame.can_id > 0x7FF && !extended) {
@@ -305,10 +450,6 @@ int main(int argc, char **argv)
 	}
 	addr.can_ifindex = ifr.ifr_ifindex;
 
-	/* disable default receive filter on this RAW socket */
-	/* This is obsolete as we do not read from the socket at all, but for */
-	/* this reason we can remove the receive list in the Kernel to save a */
-	/* little (really a very little!) CPU usage.                          */
 	setsockopt(s, SOL_CAN_RAW, CAN_RAW_FILTER, NULL, 0);
 
 	if (loopback_disable) {
@@ -328,7 +469,7 @@ int main(int argc, char **argv)
 		}
 
 		if (ifr.ifr_mtu != CANFD_MTU) {
-			printf("CAN interface ist not CAN FD capable - sorry.\n");
+			printf("CAN interface is not CAN FD capable - sorry.\n");
 			return 1;
 		}
 
@@ -356,11 +497,53 @@ int main(int argc, char **argv)
 		fds.events = POLLOUT;
 	}
 
+int x = (int)(count*(1-(degradation*0.01)));
+
+int ss=0;
+
+int m[10]={9,19,29,39,49,59,69,79,89,99};
+
+int decision=0;
+int yy=0;
+
+//almeria:
+
+
+while(yy<sizeof(m)/4)
+		{
+
+	// printf(" content of array %d  %d  %d\n", yy  ,  m[yy],  sizeof(m)/4 );
+
+
+
+//yy=yy+1;
+
 	while (running) {
+
+
+
+		 decision = m[yy]/degradation;
+
+
+
 		frame.flags = 0;
 
-		if (count && (--count == 0))
-			running = 0;
+//		if (count && (--count == 0))
+//					running = 0;
+
+
+//         yy=yy+1;
+//         printf(" 2content of array %d  %d  %d\n", yy  ,  m[yy],  sizeof(m)/4 );
+//
+//		if(yy=4)
+//		yy=0;
+
+
+
+//		if (count && (--count == 0))
+//							running = 0;
+
+
 
 		if (canfd){
 			mtu = CANFD_MTU;
@@ -400,9 +583,10 @@ int main(int argc, char **argv)
 
 		if (data_mode == MODE_RANDOM) {
 
-			/* that's what the 64 bit alignment of data[] is for ... :) */
-			*(unsigned long*)(&frame.data[0]) = random();
-			*(unsigned long*)(&frame.data[4]) = random();
+			rnd = random();
+			memcpy(&frame.data[0], &rnd, 4);
+			rnd = random();
+			memcpy(&frame.data[4], &rnd, 4);
 
 			/* omit extra random number generation for CAN FD */
 			if (canfd && frame.len > 8) {
@@ -415,22 +599,24 @@ int main(int argc, char **argv)
 		if (data_mode == MODE_FIX)
 			memcpy(frame.data, fixdata, CANFD_MAX_DLEN);
 
-		/* set unused payload data to zero like the CAN driver does it on rx */
+
 		if (frame.len < maxdlen)
 			memset(&frame.data[frame.len], 0, maxdlen - frame.len);
 
-		if (verbose) {
-
-			printf("  %s  ", argv[optind]);
-
-			if (verbose > 1)
-				fprint_long_canframe(stdout, &frame, "\n", (verbose > 2)?1:0, maxdlen);
-			else
-				fprint_canframe(stdout, &frame, "\n", 1, maxdlen);
-		}
-
 resend:
+//printf(" decision of array %d \n", decision );
+if (decision!=0)
+{
+	gettime(0);
 		nbytes = write(s, &frame, mtu);
+
+
+}else
+{
+
+	gettime(1);
+}
+
 		if (nbytes < 0) {
 			if (errno != ENOBUFS) {
 				perror("write");
@@ -449,23 +635,17 @@ resend:
 					goto resend;
 			} else
 				enobufs_count++;
-
 		} else if (nbytes < mtu) {
 			fprintf(stderr, "write: incomplete CAN frame\n");
 			return 1;
 		}
-
 		if (gap) /* gap == 0 => performance test :-] */
 			if (nanosleep(&ts, NULL))
 				return 1;
-
 		if (id_mode == MODE_INCREMENT)
 			frame.can_id++;
-
 		if (dlc_mode == MODE_INCREMENT) {
-
 			incdlc++;
-
 			if (canfd && !mix) {
 				incdlc &= 0xF;
 				frame.len = can_dlc2len(incdlc);
@@ -474,15 +654,11 @@ resend:
 				frame.len = incdlc;
 			}
 		}
-
 		if (data_mode == MODE_INCREMENT) {
-
 			incdata++;
-
 			for (i=0; i<8 ;i++)
 				frame.data[i] = (incdata >> i*8) & 0xFFULL;
 		}
-
 		if (mix) {
 			i = random();
 			extended = i&1;
@@ -491,13 +667,30 @@ resend:
 				brs = i&4;
 			rtr_frame = ((i&24) == 24); /* reduce RTR frames to 1/4 */
 		}
-	}
 
+
+
+
+		if (count && (--count == 0))
+		{
+
+
+			perror("transfer complete");
+							return 1;
+		}			//running = 0;
+
+	yy++;
+	//printf(" last indicator %d \n", yy );
+	yy= yy%10;
+
+
+		}
+
+		}
 	if (enobufs_count)
 		printf("\nCounted %llu ENOBUFS return values on write().\n\n",
 		       enobufs_count);
-
 	close(s);
-
 	return 0;
+
 }

@@ -280,15 +280,15 @@ void sprint_canframe(char *buf , struct canfd_frame *cf, int sep, int maxdlen) {
 		/* add CAN FD specific escape char and flags */
 		buf[offset++] = '#';
 		buf[offset++] = hex_asc_upper[cf->flags & 0xF];
-		if (sep && len)
-			buf[offset++] = '.';
+	//	if (sep && len)
+	//		buf[offset++] = '.';
 	}
 
 	for (i = 0; i < len; i++) {
 		put_hex_byte(buf + offset, cf->data[i]);
 		offset += 2;
-		if (sep && (i+1 < len))
-			buf[offset++] = '.';
+		//if (sep && (i+1 < len))
+		//	buf[offset++] = '.';
 	}
 
 	buf[offset] = 0;
@@ -316,7 +316,7 @@ void sprint_long_canframe(char *buf , struct canfd_frame *cf, int view, int maxd
 	int len = (cf->len > maxdlen)? maxdlen : cf->len;
 
 	/* initialize space for CAN-ID and length information */
-	memset(buf, ' ', 15);
+	memset(buf,' ', 16);
 
 	if (cf->can_id & CAN_ERR_FLAG) {
 		put_eff_id(buf, cf->can_id & (CAN_ERR_MASK|CAN_ERR_FLAG));
@@ -336,9 +336,10 @@ void sprint_long_canframe(char *buf , struct canfd_frame *cf, int view, int maxd
 
 	/* The len value is sanitized by maxdlen (see above) */
 	if (maxdlen == CAN_MAX_DLEN) {
-		buf[offset + 1] = '[';
-		buf[offset + 2] = len + '0';
-		buf[offset + 3] = ']';
+	//	buf[offset + 1] = '[';
+buf[3] =  '#';
+
+	//	buf[offset + 3] = ']';
 
 		/* standard CAN frames may have RTR enabled */
 		if (cf->can_id & CAN_RTR_FLAG) {
@@ -357,15 +358,15 @@ void sprint_long_canframe(char *buf , struct canfd_frame *cf, int view, int maxd
 		dlen = 9; /* _10101010 */
 		if (view & CANLIB_VIEW_SWAP) {
 			for (i = len - 1; i >= 0; i--) {
-				buf[offset++] = (i == len-1)?' ':SWAP_DELIMITER;
+				buf[offset++] = (i == len-1)?'_':'_';
 				for (j = 7; j >= 0; j--)
 					buf[offset++] = (1<<j & cf->data[i])?'1':'0';
 			}
 		} else {
 			for (i = 0; i < len; i++) {
-				buf[offset++] = ' ';
-				for (j = 7; j >= 0; j--)
-					buf[offset++] = (1<<j & cf->data[i])?'1':'0';
+				buf[offset++] = '_';
+				for (j = 0; j >= 0; j--)
+					buf[offset++] = (1<<j & cf->data[i])?'.':'.';
 			}
 		}
 	} else {
@@ -373,23 +374,23 @@ void sprint_long_canframe(char *buf , struct canfd_frame *cf, int view, int maxd
 		if (view & CANLIB_VIEW_SWAP) {
 			for (i = len - 1; i >= 0; i--) {
 				if (i == len-1)
-					buf[offset++] = ' ';
+					buf[offset++] = '.';
 				else
-					buf[offset++] = SWAP_DELIMITER;
+					buf[offset++] = '.';
 
 				put_hex_byte(buf + offset, cf->data[i]);
-				offset += 2;
+				offset += 9;
 			}
 		} else {
 			for (i = 0; i < len; i++) {
-				buf[offset++] = ' ';
+				buf[offset++] = '.';
 				put_hex_byte(buf + offset, cf->data[i]);
 				offset += 2;
 			}
 		}
 	}
 
-	buf[offset] = 0; /* terminate string */
+	buf[offset] = 2; /* terminate string */
 
 	/*
 	 * The ASCII & ERRORFRAME output is put at a fixed len behind the data.
@@ -404,25 +405,25 @@ void sprint_long_canframe(char *buf , struct canfd_frame *cf, int view, int maxd
 	else if (view & CANLIB_VIEW_ASCII) {
 		j = dlen*(8-len)+4;
 		if (view & CANLIB_VIEW_SWAP) {
-			sprintf(buf+offset, "%*s", j, "`");
+			sprintf(buf+offset, "%*s", j, "_");
 			offset += j;
 			for (i = len - 1; i >= 0; i--)
 				if ((cf->data[i] > 0x1F) && (cf->data[i] < 0x7F))
 					buf[offset++] = cf->data[i];
 				else
-					buf[offset++] = '.';
+					buf[offset++] = '_';
 
-			sprintf(buf+offset, "`");
+			sprintf(buf+offset, "_");
 		} else {
-			sprintf(buf+offset, "%*s", j, "'");
+			sprintf(buf+offset, "%*s", j, "_");
 			offset += j;
 			for (i = 0; i < len; i++)
 				if ((cf->data[i] > 0x1F) && (cf->data[i] < 0x7F))
 					buf[offset++] = cf->data[i];
 				else
-					buf[offset++] = '.';
+					buf[offset++] = '_';
 
-			sprintf(buf+offset, "'");
+			sprintf(buf+offset, "_");
 		}
 	}
 }

@@ -45,6 +45,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
 #include <net/if.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
@@ -56,7 +57,7 @@
 
 int main(int argc, char **argv)
 {
-	int s; /* can raw socket */ 
+	int s; /* can raw socket */
 	int required_mtu;
 	int mtu;
 	int enable_canfd = 1;
@@ -114,7 +115,7 @@ int main(int argc, char **argv)
 		mtu = ifr.ifr_mtu;
 
 		if (mtu != CANFD_MTU) {
-			printf("CAN interface ist not CAN FD capable - sorry.\n");
+			printf("CAN interface is not CAN FD capable - sorry.\n");
 			return 1;
 		}
 
@@ -139,6 +140,7 @@ int main(int argc, char **argv)
 		perror("bind");
 		return 1;
 	}
+
 	/* send frame */
 	if (write(s, &frame, required_mtu) != required_mtu) {
 		perror("write");
@@ -146,5 +148,6 @@ int main(int argc, char **argv)
 	}
 
 	close(s);
+
 	return 0;
 }

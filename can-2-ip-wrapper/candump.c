@@ -42,7 +42,6 @@
  */
 
 #include <stdio.h>
-
 #include <stdlib.h>
 #include <stdint.h>
 #include <unistd.h>
@@ -93,7 +92,7 @@ static __u32 dropcnt[MAXSOCK];
 static __u32 last_dropcnt[MAXSOCK];
 static char devname[MAXIFNAMES][IFNAMSIZ+1];
 static int  dindex[MAXIFNAMES];
-static int  max_devname_len; /* to prevent frazzled device name output */ 
+static int  max_devname_len; /* to prevent frazzled device name output */
 const int canfd_on = 1;
 
 #define MAXANI 4
@@ -234,6 +233,7 @@ int main(int argc, char **argv)
 	struct canfd_frame frame;
 	int nbytes, i, maxdlen;
 	struct ifreq ifr;
+
 	struct timeval tv, last_tv;
 	struct timeval timeout, timeout_config = { 0, 0 }, *timeout_current = NULL;
 	FILE *logfile = NULL;
@@ -301,7 +301,7 @@ int main(int argc, char **argv)
 				if (ioctl(bridge, SIOCGIFINDEX, &ifr) < 0)
 					perror("SIOCGIFINDEX");
 				addr.can_ifindex = ifr.ifr_ifindex;
-		
+
 				if (!addr.can_ifindex) {
 					perror("invalid bridge interface");
 					return 1;
@@ -323,7 +323,7 @@ int main(int argc, char **argv)
 				}
 			}
 			break;
-	    
+
 		case 'u':
 			bridge_delay = (useconds_t)strtoul(optarg, (char **)NULL, 10);
 			break;
@@ -386,7 +386,7 @@ int main(int argc, char **argv)
 		print_usage(basename(argv[0]));
 		exit(0);
 	}
-	
+
 	if (logfrmt && view) {
 		fprintf(stderr, "Log file format selected: Please disable ASCII/BINARY/SWAP options!\n");
 		exit(0);
@@ -484,19 +484,19 @@ int main(int argc, char **argv)
 				nptr = strchr(ptr, ','); /* update exit condition */
 
 				if (sscanf(ptr, "%x:%x",
-					   &rfilter[numfilter].can_id, 
+					   &rfilter[numfilter].can_id,
 					   &rfilter[numfilter].can_mask) == 2) {
  					rfilter[numfilter].can_mask &= ~CAN_ERR_FLAG;
 					numfilter++;
 				} else if (sscanf(ptr, "%x~%x",
-						  &rfilter[numfilter].can_id, 
+						  &rfilter[numfilter].can_id,
 						  &rfilter[numfilter].can_mask) == 2) {
  					rfilter[numfilter].can_id |= CAN_INV_FILTER;
  					rfilter[numfilter].can_mask &= ~CAN_ERR_FLAG;
 					numfilter++;
 				} else if (*ptr == 'j' || *ptr == 'J') {
 					join_filter = 1;
-				} else if (sscanf(ptr, "#%x", &err_mask) != 1) { 
+				} else if (sscanf(ptr, "#%x", &err_mask) != 1) {
 					fprintf(stderr, "Error in filter option parsing: '%s'\n", ptr);
 					return 1;
 				}
@@ -645,7 +645,7 @@ int main(int argc, char **argv)
 				/* these settings may be modified by recvmsg() */
 				iov.iov_len = sizeof(frame);
 				msg.msg_namelen = sizeof(addr);
-				msg.msg_controllen = sizeof(ctrlmsg);  
+				msg.msg_controllen = sizeof(ctrlmsg);
 				msg.msg_flags = 0;
 
 				nbytes = recvmsg(s[i], &msg, 0);
@@ -685,14 +685,14 @@ int main(int argc, char **argv)
 						return 1;
 					}
 				}
-		    
+
 				for (cmsg = CMSG_FIRSTHDR(&msg);
 				     cmsg && (cmsg->cmsg_level == SOL_SOCKET);
 				     cmsg = CMSG_NXTHDR(&msg,cmsg)) {
 					if (cmsg->cmsg_type == SO_TIMESTAMP)
-						tv = *(struct timeval *)CMSG_DATA(cmsg);
+						memcpy(&tv, CMSG_DATA(cmsg), sizeof(tv));
 					else if (cmsg->cmsg_type == SO_RXQ_OVFL)
-						dropcnt[i] = *(__u32 *)CMSG_DATA(cmsg);
+						memcpy(&dropcnt[i], CMSG_DATA(cmsg), sizeof(__u32));
 				}
 
 				/* check for (unlikely) dropped frames on this specific socket */
@@ -730,9 +730,8 @@ int main(int argc, char **argv)
 
 					/* print CAN frame in log file style to stdout */
 					sprint_canframe(buf, &frame, 0, maxdlen);
-					printf("(%010ld.%06ld) %*s %s\n",
-					       tv.tv_sec, tv.tv_usec,
-					       max_devname_len, devname[idx], buf);
+					printf("%010ld.%06ld000 %s\n",
+					       tv.tv_sec, tv.tv_usec,buf);
 					goto out_fflush; /* no other output to stdout */
 				}
 
@@ -743,7 +742,7 @@ int main(int argc, char **argv)
 					}
 					goto out_fflush; /* no other output to stdout */
 				}
-		      
+
 				printf(" %s", (color>2)?col_on[idx%MAXCOL]:"");
 
 				switch (timestamp) {
@@ -777,7 +776,7 @@ int main(int argc, char **argv)
 					if (diff.tv_sec < 0)
 						diff.tv_sec = diff.tv_usec = 0;
 					printf("(%03ld.%06ld) ", diff.tv_sec, diff.tv_usec);
-				
+
 					if (timestamp == 'd')
 						last_tv = tv; /* update for delta calculation */
 				}
