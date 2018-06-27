@@ -48,10 +48,12 @@ SDN for intra vehicular networks can enhance the integrity, reliability, and sec
 
    #### Interoperability Code  (contributors :  khalid.halba@nist.gov & charif.mahmoudi@nist.gov ) :
    
-      /can2ipwrapper/Licence-can-utils.md   : licence to reuse / modify files 
+       
       /can2ipwrapper/IPtoCanwrapper.c       : convert IP frames to CAN frames : CAN+IP sockets. 
       /can2ipwrapper/can2IPwrapper.c        : convert CAN frames to IP frames : CAN+IP sockets. 
-    
+      /can2ipwrapper/CANSx.sh               : CAN interface configuration. 
+      /can2ipwrapper/Licence-can-utils.md   : licence to reuse / modify files.
+      
    #### CAN Libraries and traffic generators  ( Reused Code )  : https://github.com/linux-can/can-utils 
       
       /can2ipwrapper/Licence-can-utils.md   : licence to reuse / modify files 
