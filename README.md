@@ -46,16 +46,18 @@ SDN for intra vehicular networks can enhance the integrity, reliability, and sec
 
 ### description of files : 
 
-   #### Interoperability Code  (contributors :  khalid.halba@nist.gov & charif.mahmoudi@nist.gov ) : 
+   #### Interoperability Code  (contributors :  khalid.halba@nist.gov & charif.mahmoudi@nist.gov ) :
    
-      /can2ipwrapper/IPtoCanwrapper.c : convert IP frames to CAN frames. 
-      /can2ipwrapper/can2IPwrapper.c  : convert CAN frames to IP frames. 
+      /can2ipwrapper/Licence-can-utils.md   : licence to reuse / modify files 
+      /can2ipwrapper/IPtoCanwrapper.c       : convert IP frames to CAN frames : CAN+IP sockets. 
+      /can2ipwrapper/can2IPwrapper.c        : convert CAN frames to IP frames : CAN+IP sockets. 
     
    #### CAN Libraries and traffic generators  ( Reused Code )  : https://github.com/linux-can/can-utils 
-  
-      /can2ipwrapper/cangen.c         : generate CAN frames. 
-      /can2ipwrapper/candump.c        : receive and dump CAN frames.
-      /can2ipwrapper/include/linux/*  : CAN libraries 
+      
+      /can2ipwrapper/Licence-can-utils.md   : licence to reuse / modify files 
+      /can2ipwrapper/cangen.c               : generate CAN frames. 
+      /can2ipwrapper/candump.c              : receive and dump CAN frames.
+      /can2ipwrapper/include/linux/*        : CAN libraries 
       
 ##  The file "infra-setup.md" explains in detail how to run SDN over a wireless network. this is the first step into implementing Software Defined In Vehicule networks over a wireless network. 
 
